@@ -1,0 +1,55 @@
+{
+  "name": "file-sizes-explorer",
+  "displayName": "File Sizes Explorer",
+  "description": "Tiny, fast file size badges in the VS Code Explorer with tooltips and optional folder sizes.",
+  "version": "1.0.0",
+  "publisher": "briandooley",
+  "engines": { "vscode": "^1.90.0" },
+  "categories": ["Other"],
+  "keywords": ["explorer", "file size", "decorations", "badge", "tooltip"],
+  "activationEvents": ["onStartupFinished"],
+  "main": "./dist/extension.js",
+  "icon": "images/icon.png",
+  "repository": { "type": "git", "url": "https://github.com/bdoole1/file-sizes-explorer.git" },
+  "bugs": { "url": "https://github.com/bdoole1/file-sizes-explorer/issues" },
+  "homepage": "https://github.com/bdoole1/file-sizes-explorer/blob/main/README.md",
+  "license": "MIT",
+  "contributes": {
+    "configuration": {
+      "title": "File Sizes Explorer",
+      "properties": {
+        "explorerFileSizes.badgeMode": {
+          "type": "string",
+          "enum": ["full", "subtle", "off"],
+          "default": "full",
+          "description": "full: 2-char size badge (e.g. 1M); subtle: faint dot with tooltip; off: no badge (status bar shows size for the active file)."
+        },
+        "explorerFileSizes.enableFolderSizes": {
+          "type": "boolean",
+          "default": false,
+          "description": "If true, compute folder sizes recursively (may be slow on large trees)."
+        },
+        "explorerFileSizes.excludeGlobs": {
+          "type": "array",
+          "default": ["**/node_modules/**", "**/.git/**", "**/dist/**", "**/build/**"],
+          "items": { "type": "string" },
+          "description": "Globs to exclude when computing folder sizes."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "node ./esbuild.js --production",
+    "watch": "node ./esbuild.js --watch",
+    "package": "vsce package",
+    "test": "echo no tests yet"
+  },
+  "devDependencies": {
+    "@types/node": "^18.19.0",
+    "@types/vscode": "^1.90.0",
+    "esbuild": "^0.25.9",
+    "eslint": "^9.0.0",
+    "typescript": "^5.5.0"
+  }
+}
